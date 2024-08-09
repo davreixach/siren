@@ -469,7 +469,8 @@ class Camera(Dataset):
 
         if downsample_factor > 1:
             size = (int(512 / downsample_factor),) * 2
-            self.img_downsampled = self.img.resize(size, Image.ANTIALIAS)
+            # self.img_downsampled = self.img.resize(size, Image.ANTIALIAS)
+            self.img_downsampled = self.img.resize(size, Image.LANCZOS)
 
     def __len__(self):
         return 1
