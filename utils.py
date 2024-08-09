@@ -586,10 +586,6 @@ def write_psnr(pred_img, gt_img, writer, iter, prefix):
 
         # ssim = skimage.measure.compare_ssim(p, trgt, multichannel=True, data_range=1)
         # psnr = skimage.measure.compare_psnr(p, trgt, data_range=1)
-
-        print(p.shape)
-        print(trgt.shape)
-        quit()
         ssim = skimage.metrics.structural_similarity(p, trgt, channel_axis=-1, data_range=1)
         psnr = skimage.metrics.peak_signal_noise_ratio(p, trgt, data_range=1)
 
