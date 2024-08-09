@@ -56,7 +56,10 @@ if opt.dataset == 'camera':
 if opt.dataset == 'camera_downsampled':
     img_dataset = dataio.Camera(downsample_factor=2)
     coord_dataset = dataio.Implicit2DWrapper(img_dataset, sidelength=256, compute_diff='all')
-    image_resolution = (256, 256)
+if opt.dataset == 'camera_downsampled2':
+    img_dataset = dataio.Camera(downsample_factor=4)
+    coord_dataset = dataio.Implicit2DWrapper(img_dataset, sidelength=128, compute_diff='all')
+    image_resolution = (128, 128)
 if opt.dataset == 'custom':
     img_dataset = dataio.ImageFile(opt.custom_image)
     coord_dataset = dataio.Implicit2DWrapper(img_dataset, sidelength=(img_dataset[0].size[1], img_dataset[0].size[0]),
