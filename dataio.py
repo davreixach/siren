@@ -639,8 +639,8 @@ class Implicit2DWrapper(torch.utils.data.Dataset):
             gt_dict.update({'gradients': gradients})
             gt_dict.update({'laplace': torch.from_numpy(laplace).view(-1, 1)})
 
-        print([el.shape for el in in_dict.elements()])
-        print([el.shape for el in gt_dict.elements()])
+        print([el.shape for el in in_dict.values()])
+        print([el.shape for el in gt_dict.values()])
 
         return in_dict, gt_dict
 
