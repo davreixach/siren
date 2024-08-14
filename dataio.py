@@ -608,13 +608,12 @@ class Implicit2DWrapper(torch.utils.data.Dataset):
             img *= 1e4
             laplace = scipy.ndimage.laplace(img.numpy()).squeeze(0)[..., None]
         elif self.compute_diff == 'all':
-
-            print(img.numpy().shape)
-            quit()
-
-            gradx = scipy.ndimage.sobel(img.numpy(), axis=1).squeeze(0)[..., None]
-            grady = scipy.ndimage.sobel(img.numpy(), axis=2).squeeze(0)[..., None]
-            laplace = scipy.ndimage.laplace(img.numpy()).squeeze(0)[..., None]
+            # gradx = scipy.ndimage.sobel(img.numpy(), axis=1).squeeze(0)[..., None]
+            # grady = scipy.ndimage.sobel(img.numpy(), axis=2).squeeze(0)[..., None]
+            # laplace = scipy.ndimage.laplace(img.numpy()).squeeze(0)[..., None]
+            gradx = scipy.ndimage.sobel(img.numpy(), axis=1).squeeze()[..., None]
+            grady = scipy.ndimage.sobel(img.numpy(), axis=2).squeeze()[..., None]
+            laplace = scipy.ndimage.laplace(img.numpy()).squeeze()[..., None]
 
         img = img.permute(1, 2, 0).view(-1, self.dataset.img_channels)
 
