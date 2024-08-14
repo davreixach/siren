@@ -468,7 +468,7 @@ class Camera(Dataset):
         self.img = Image.fromarray(skimage.data.astronaut())
         # self.img_channels = 1
         self.img_channels = 3
-        
+
         if downsample_factor > 1:
             size = (int(512 / downsample_factor),) * 2
             # self.img_downsampled = self.img.resize(size, Image.ANTIALIAS)
@@ -608,6 +608,10 @@ class Implicit2DWrapper(torch.utils.data.Dataset):
             img *= 1e4
             laplace = scipy.ndimage.laplace(img.numpy()).squeeze(0)[..., None]
         elif self.compute_diff == 'all':
+
+            print(img.numpy().shape)
+            quit()
+
             gradx = scipy.ndimage.sobel(img.numpy(), axis=1).squeeze(0)[..., None]
             grady = scipy.ndimage.sobel(img.numpy(), axis=2).squeeze(0)[..., None]
             laplace = scipy.ndimage.laplace(img.numpy()).squeeze(0)[..., None]
