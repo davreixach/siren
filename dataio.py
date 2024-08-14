@@ -618,7 +618,7 @@ class Implicit2DWrapper(torch.utils.data.Dataset):
         img = img.permute(1, 2, 0).view(-1, self.dataset.img_channels)
 
         print(img.shape)
-        quit()
+        # quit()
 
         in_dict = {'idx': idx, 'coords': self.mgrid}
         gt_dict = {'img': img}
@@ -638,6 +638,9 @@ class Implicit2DWrapper(torch.utils.data.Dataset):
                                   dim=-1)
             gt_dict.update({'gradients': gradients})
             gt_dict.update({'laplace': torch.from_numpy(laplace).view(-1, 1)})
+
+        print([el.shape for el in in_dict.elements()])
+        print([el.shape for el in gt_dict.elements()])
 
         return in_dict, gt_dict
 
