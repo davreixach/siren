@@ -464,9 +464,11 @@ class Camera(Dataset):
     def __init__(self, downsample_factor=1):
         super().__init__()
         self.downsample_factor = downsample_factor
-        self.img = Image.fromarray(skimage.data.camera())
-        self.img_channels = 1
-
+        # self.img = Image.fromarray(skimage.data.camera())
+        self.img = Image.fromarray(skimage.data.astronaut())
+        # self.img_channels = 1
+        self.img_channels = 3
+        
         if downsample_factor > 1:
             size = (int(512 / downsample_factor),) * 2
             # self.img_downsampled = self.img.resize(size, Image.ANTIALIAS)
