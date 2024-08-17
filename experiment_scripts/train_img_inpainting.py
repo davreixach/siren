@@ -102,7 +102,9 @@ elif opt.prior == 'TV':
     loss_fn = partial(loss_functions.image_mse_TV_prior, mask.view(-1,1), opt.k1, model)
 elif opt.prior == 'FH':
     loss_fn = partial(loss_functions.image_mse_FH_prior, mask.view(-1,1), opt.k1, model)
-summary_fn = partial(utils.write_image_summary(image_resolution=image_resolution), image_resolution)
+print(image_resolution)
+quit()
+summary_fn = partial(utils.write_image_summary, image_resolution)
 
 training.train(model=model, train_dataloader=dataloader, epochs=opt.num_epochs, lr=opt.lr,
                steps_til_summary=opt.steps_til_summary, epochs_til_checkpoint=opt.epochs_til_ckpt,
