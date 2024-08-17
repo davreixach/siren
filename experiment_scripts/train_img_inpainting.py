@@ -94,8 +94,6 @@ if opt.mask_path:
 else:
     mask = torch.rand(image_resolution) < opt.sparsity
     mask = mask.float().cuda()
-    print(mask.shape)
-    quit()
 
 # Define the loss
 if opt.prior is None:
