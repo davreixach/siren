@@ -49,6 +49,8 @@ def lin2img(tensor, image_resolution=None):
         height = image_resolution[0]
         width = image_resolution[1]
 
+    print(tensor.shape)
+
     return tensor.permute(0, 2, 1).view(batch_size, channels, height, width)
 
 
@@ -644,7 +646,7 @@ class Implicit2DWrapper(torch.utils.data.Dataset):
 
         print(gt_dict['gradients'].shape)
         print(gt_dict['laplace'].shape)
-        quit()
+        # quit()
 
         return in_dict, gt_dict
 
