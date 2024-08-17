@@ -89,6 +89,8 @@ if opt.mask_path:
     mask = Image.open(opt.mask_path)
     mask = ToTensor()(mask)
     mask = mask.float().cuda()
+    print(mask.shape)
+    quit()
     percentage = torch.sum(mask).cpu().numpy() / np.prod(mask.shape)
     print("mask sparsity %f" % (percentage))
 else:
