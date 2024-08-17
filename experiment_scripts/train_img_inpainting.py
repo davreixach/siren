@@ -94,6 +94,8 @@ if opt.mask_path:
 else:
     mask = torch.rand(image_resolution) < opt.sparsity
     mask = mask.float().cuda()
+    percentage = torch.sum(mask).cpu().numpy() / np.prod(mask.shape)
+    print("mask sparsity %f" % (percentage))
 
 # Define the loss
 if opt.prior is None:
