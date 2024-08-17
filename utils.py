@@ -340,7 +340,7 @@ def write_image_summary(image_resolution, model, model_input, gt,
                      global_step=total_steps)
 
     pred_img = dataio.rescale_img((pred_img+1)/2, mode='clamp').permute(0,2,3,1).squeeze(0).detach().cpu().numpy()
-    pred_grad = dataio.grads2img(dataio.lin2img(img_gradient), image_resolution=image_resolution).permute(1,2,0).squeeze().detach().cpu().numpy()
+    pred_grad = dataio.grads2img(dataio.lin2img(img_gradient, image_resolution=image_resolution)).permute(1,2,0).squeeze().detach().cpu().numpy()
     pred_lapl = cv2.cvtColor(cv2.applyColorMap(dataio.to_uint8(dataio.rescale_img(
                              dataio.lin2img(img_laplace), perc=2).permute(0,2,3,1).squeeze(0).detach().cpu().numpy()), cmapy.cmap('RdBu')), cv2.COLOR_BGR2RGB)
 
