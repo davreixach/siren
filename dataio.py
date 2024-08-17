@@ -617,11 +617,11 @@ class Implicit2DWrapper(torch.utils.data.Dataset):
 
         img = img.permute(1, 2, 0).view(-1, self.dataset.img_channels)
 
-        # print(gradx.shape)
-        # print(grady.shape)
+        print(gradx.shape)
+        print(grady.shape)
 
-        # print(img.shape)
-        # quit()
+        print(img.shape)
+        quit()
 
         in_dict = {'idx': idx, 'coords': self.mgrid}
         gt_dict = {'img': img}
