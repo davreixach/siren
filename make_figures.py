@@ -35,10 +35,6 @@ def extract_images_from_summary(events_path, tag_names_to_look_for, suffix='', i
         tag_name = tag.replace('/', '_')
         # ... that have the tag name: "tag_name_to_look_for"
 
-        print(event_acc.Tags()['images'])
-        print(tag_names_to_look_for)
-        quit()
-
         if tag_name in tag_names_to_look_for:
             tag_name = tag_name + strsuffix
 
