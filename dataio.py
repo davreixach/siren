@@ -49,7 +49,7 @@ def lin2img(tensor, image_resolution=None):
         height = image_resolution[0]
         width = image_resolution[1]
 
-    print(tensor.shape)
+    # print(tensor.shape)
 
     return tensor.permute(0, 2, 1).view(batch_size, channels, height, width)
 
