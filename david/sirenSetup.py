@@ -280,10 +280,10 @@ class SirenCompletion(experiment.GenericSetup):
         Stest_nl = emu.nestedList(())
         Mask_nl = emu.nestedList(())
 
-        Stest = cv2.imread(self.opt['imagePath'])
-        Mask = cv2.imread(self.opt['maskPath'])
+        Stest = cv2.imread(self.opt['imagePath'])/255.
+        Mask = cv2.imread(self.opt['maskPath'])/255.
 
-        R_nl.setElement(cv2.imread(outPath + "0009.png"), id=None)                              # get
+        R_nl.setElement(cv2.imread(outPath + "0000.png")/255., id=None)                              # get
         S_nl.setElement(Stest*Mask, id=None)
         Stest_nl.setElement(Stest, id=None)
         Mask_nl.setElement(Mask, id=None)
