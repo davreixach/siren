@@ -263,7 +263,7 @@ class SirenCompletion(experiment.GenericSetup):
         arr_psnrs = np.load(summaryPath + "psnrs.npy")
         # arr_times = np.load(summaryPath + "times.npy")
 
-        resTuple = collections.namedtuple('Result', ['PSNR', 'Time'])                   # as namedtuple
+        resTuple = namedtuple('Result', ['PSNR', 'Time'])                   # as namedtuple
         return resTuple(arr_psnrs[-1], time)
 
     def catch_solutions(self):
