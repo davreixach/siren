@@ -71,6 +71,7 @@ def extract_from_summary(path, value_tag):
         if not origin_wall_time:
             origin_wall_time = event.wall_time
         for value in event.summary.value:
+            print(value.tag)
             if value.tag == value_tag:
                 wall_times.append(event.wall_time - origin_wall_time)
                 values.append(value.simple_value)
