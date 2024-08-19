@@ -86,6 +86,7 @@ if expId == 1:
 
     multi_run = 1                                                                                       # expOpt
     multi_step = 1
+    multi_signal = 1
     varCoupling = ('StestFileName', 'MaskFileName')
 
 elif expId == 2:
@@ -96,6 +97,7 @@ elif expId == 2:
 
     multi_run = 1                                                                                       # expOpt
     multi_step = 1
+    multi_signal = 1
     varCoupling = ('StestFileName', 'MaskFileName')
 
 elif expId == 3:
@@ -106,6 +108,7 @@ elif expId == 3:
 
     multi_run = 1                                                                                       # expOpt
     multi_step = 1
+    multi_signal = 1
     varCoupling = ('StestFileName', 'MaskFileName')
 
 elif expId == 4:
@@ -116,6 +119,7 @@ elif expId == 4:
 
     multi_run = 1                                                                                       # expOpt
     multi_step = 1
+    multi_signal = 1
     varCoupling = ('StestFileName', 'MaskFileName')
 
 else:
