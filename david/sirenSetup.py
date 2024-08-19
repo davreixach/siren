@@ -27,7 +27,7 @@ import copy
 import numpy as np
 # import torch
 # import pandas as pd
-# import cv2
+import cv2
 
 import emics.util as emu
 from emics import experiment
@@ -172,6 +172,8 @@ class SirenCompletion(experiment.GenericSetup):
         #                         dimC=self.cri.dimC, crp=True, zm=self.opt['opt_d']['ZeroMean'])
         #     self.init_dict_solver()
 
+        self.timer = emu.Timer('execution')
+
         self.reset(res_par=res_par)                                                                 # reset
 
         self.Init = True
@@ -233,34 +235,62 @@ class SirenCompletion(experiment.GenericSetup):
         imagePath = self.opt['imagePath']
         maskPath = self.opt['maskPath']
 
-        os.system("python3 experiment_scripts/train_img_inpainting.py --experiment_name=" + sirenFileName +\
-                    "--dataset='custom' --custom_image=" + imagePath + "--mask_path=" + maskPath)
+        self.timer.reset(['execution'])
+        self.timer.start(['execution'])
 
-        self.result = self.catch_results()
+        os.system("rm -rf ./logs/" + sirenFileName + "/")                               # remove old data
+
+        os.system("python3 experiment_scripts/train_img_inpainting.py --experiment_name=" + sirenFileName +\
+                    "--dataset='custom' --custom_image=" + imagePath + "--mask_path=" + maskPath +\
+                  "--num-epochs=" + " %.i"% int(1000))
+
+        self.timer.stop(['execution'])
+
+        self.result = self.catch_results(self.elapsed('execution'))
 
         if self.opt['Verbose']:
-            print("Xstep solve time: %.2fs" % self.xstep.timer.elapsed('solve'), "\n")
+            print("Siren solve time: %.2fs" % self.elapsed('execution'), "\n")
             print("Test "+emu.ntpl2string(self.result) + "\n")
 
-    def catch_results(self):
+    def catch_results(self, time):
         """Catch siren completion results"""
 
-    summaryPath = "./logs/" + self.opt['sirenFileName'] + "/summaries/"
+        summaryPath = "./logs/" + self.opt['sirenFileName'] + "/summaries/"
 
-    make_figures.extract_image_psnrs(dict({'base': summaryPath}))
-    make_figures.extract_image_times(dict({'base': summaryPath}))
+        make_figures.extract_image_psnrs(dict({'base': summaryPath}))
+        # make_figures.extract_image_times(dict({'base': summaryPath}))
 
-    arr_psnrs = np.load(summaryPath + "psnrs.npy")
-    arr_times = np.load(summaryPath + "times.npy")
+        arr_psnrs = np.load(summaryPath + "psnrs.npy")
+        # arr_times = np.load(summaryPath + "times.npy")
 
-    resTuple = collections.namedtuple('Result', ['PSNR', 'Time'])                   # as namedtuple
-
-    return resTuple(arr_psnrs[-1], arr_times[-1])
+        resTuple = collections.namedtuple('Result', ['PSNR', 'Time'])                   # as namedtuple
+        return resTuple(arr_psnrs[-1], time)
 
     def catch_solutions(self):
         """Catch siren completion solutions"""
 
+        summaryPath = "./logs/" + self.opt['sirenFileName'] + "/summaries/"
 
+        make_figures.extract_images_from_summary(summaryPath, 'train_pred_img', suffix='',\
+                                                 img_outdir='./out/', colormap=None)
+
+        R_nl = emu.nestedList(())                                                                   # nestedList
+        S_nl = emu.nestedList(())
+        Stest_nl = emu.nestedList(())
+        Mask_nl = emu.nestedList(())
+
+        Stest = cv2.imread(self.opt['imagePath'])
+        Mask = cv2.imread(self.opt['maskPath'])
+
+        R_nl.setElement(cv2.imread(summaryPath + "0009.png"), id=None)                              # get
+        S_nl.setElement(Stest*Mask, id=None)
+        Stest_nl.setElement(Stest, id=None)
+        Mask_nl.setElement(Mask, id=None)
+
+        save_list = [R_nl, S_nl, Stest_nl, Mask_nl]                                                 # as dict
+        keys_list = ['R', 'S', 'Stest', 'Mask']
+
+        return dict(zip(keys_list, save_list))
 
     def set_res_parameters(self):
         """Set results parameters list."""
@@ -283,28 +313,16 @@ class SirenCompletion(experiment.GenericSetup):
     def get_results(self):
         """Get xstep objects results"""
 
-        if self.solveDict:
-            results_nl_d = emu.nestedList(())                                                           # nestedList
-            results_d = self.get_full_result(self.result_d)                                             # full result
-            results_nl_d.setElement(emu.ntpl2array(results_d), id=None)                                 # append
-        else:
-            results_nl_d = None
+        results_nl = emu.nestedList(())                                                                 # nestedList
+        results = self.get_full_result(self.result)                                                     # full result
+        results_nl.setElement(emu.ntpl2array(results), id=None)                                         # append
 
-        results_nl_x = emu.nestedList(())                                                               # nestedList
-        results_x = self.get_full_result(self.result_x)                                                 # full result
-        results_nl_x.setElement(emu.ntpl2array(results_x), id=None)                                     # append
-
-        return {'CDL': results_nl_d, 'LRD': results_nl_x}
+        return {'Siren': results_nl}
 
     def get_stats(self):
         """Get d-object and xstep object statistics"""
 
-        if self.solveDict:
-            stats_CDL = self.d_solver.get_itstat()
-        else:
-            stats_CDL = None
-
-        return {'CDL': stats_CDL, 'LRD_AK': self.xstep.get_itstat(), 'LRD_K': self.xstep.get_itstat_full()}
+        return {}
 
     def save_solutions(self, file_name, id=None):
         """Save collected solutions."""
@@ -319,9 +337,7 @@ class SirenCompletion(experiment.GenericSetup):
 
         results = self.get_results()                                                                    # get
 
-        if self.solveDict:                                                                              # save
-            results['CDL'].save(file_name, key='resCDL', id=id)
-        results['LRD'].save(file_name, key='resLRD', id=id)
+        results['Siren'].save(file_name, key='Siren', id=id)                                            # save
 
     def save_stats(self, file_name, id=None):
         """Save collected statistics."""
