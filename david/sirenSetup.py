@@ -242,14 +242,14 @@ class SirenCompletion(experiment.GenericSetup):
 
         os.system("python3 experiment_scripts/train_img_inpainting.py --experiment_name=" + sirenFileName +\
                     "--dataset='custom' --custom_image=" + imagePath + "--mask_path=" + maskPath +\
-                  "--num-epochs=" + " %.i"% int(1000))
+                  "--num_epochs=" + " %.i"% int(1000))
 
         self.timer.stop(['execution'])
 
-        self.result = self.catch_results(self.elapsed('execution'))
+        self.result = self.catch_results(self.timer.elapsed('execution'))
 
         if self.opt['Verbose']:
-            print("Siren solve time: %.2fs" % self.elapsed('execution'), "\n")
+            print("Siren solve time: %.2fs" % self.timer.elapsed('execution'), "\n")
             print("Test "+emu.ntpl2string(self.result) + "\n")
 
     def catch_results(self, time):
