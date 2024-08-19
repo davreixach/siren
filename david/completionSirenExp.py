@@ -60,9 +60,7 @@ def completion(config, setup=None, signal=0):                                   
                                            'imagePath': config.current['imagePath'], \
                                            'maskPath': config.current['maskPath']})
 
-    ss.SirenCompletion(opt=setupOpt)                                                        # setup
-
-    return setup
+    return ss.SirenCompletion(opt=setupOpt)                                                        # setup
 
 """
 Global Experiment Options Definition
