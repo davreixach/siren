@@ -186,8 +186,8 @@ class SirenCompletion(experiment.GenericSetup):
         if opt is self.opt and self.Init:                                                           # opt update
             opt = NOTHING
 
-        if res_par is self.res_par and self.Init:
-            res_par = NOTHING
+        # if res_par is self.res_par and self.Init:
+        #     res_par = NOTHING
 
         if opt is not NOTHING:                                                                      # opt reset
             if opt is None:
@@ -223,7 +223,7 @@ class SirenCompletion(experiment.GenericSetup):
         # if self.solveDict:
         #     self.init_dict_solver()                                                                 # init dict solver
 
-        self.set_res_parameters()                                                                   # opt dependant
+        # self.set_res_parameters()                                                                   # opt dependant
         self.clear_stat()                                                                           # clear stat
 
         # self.xstep.reset()                                                                          # reset xstep
