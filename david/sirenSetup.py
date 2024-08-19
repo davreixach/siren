@@ -241,8 +241,8 @@ class SirenCompletion(experiment.GenericSetup):
         os.system("rm -rf ./logs/" + sirenFileName + "/")                               # remove old data
 
         os.system("python3 experiment_scripts/train_img_inpainting.py --experiment_name=" + sirenFileName +\
-                    " --dataset='custom' --custom_image=" + imagePath + " --mask_path=" + maskPath +\
-                  " --num_epochs=" + "%.i"% int(1000))
+                    " --dataset='custom' --custom_image=" + imagePath + " --mask_path=" + maskPath) #+\
+                  # " --num_epochs=" + "%.i"% int(1000))
 
         self.timer.stop(['execution'])
 
@@ -283,7 +283,7 @@ class SirenCompletion(experiment.GenericSetup):
         Stest = cv2.imread(self.opt['imagePath'])/255.
         Mask = cv2.imread(self.opt['maskPath'])/255.
 
-        R_nl.setElement(cv2.imread(outPath + "0000.png")/255., id=None)                              # get
+        R_nl.setElement(cv2.imread(outPath + "0009.png")/255., id=None)                              # get
         S_nl.setElement(Stest*Mask, id=None)
         Stest_nl.setElement(Stest, id=None)
         Mask_nl.setElement(Mask, id=None)
