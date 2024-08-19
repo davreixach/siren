@@ -223,7 +223,7 @@ class SirenCompletion(experiment.GenericSetup):
         # if self.solveDict:
         #     self.init_dict_solver()                                                                 # init dict solver
 
-        # self.set_res_parameters()                                                                   # opt dependant
+        self.set_res_parameters()                                                                   # opt dependant
         self.clear_stat()                                                                           # clear stat
 
         # self.xstep.reset()                                                                          # reset xstep
@@ -296,7 +296,7 @@ class SirenCompletion(experiment.GenericSetup):
         """Set results parameters list."""
 
         # self.parameters = dict(zip(self.res_par.keys(), [eval(val, self.__dict__) for val in self.res_par.values()]))
-        self.parameters  = {}   
+        self.parameters  = {}
 
     def get_full_result(self, results):
         """
