@@ -242,7 +242,7 @@ class SirenCompletion(experiment.GenericSetup):
 
         os.system("python3 experiment_scripts/train_img_inpainting.py --experiment_name=" + sirenFileName +\
                     "--dataset='custom' --custom_image=" + imagePath + "--mask_path=" + maskPath +\
-                  "--num_epochs=" + " %.i"% int(1000))
+                  "--num_epochs=" + "%.i"% int(1000))
 
         self.timer.stop(['execution'])
 
