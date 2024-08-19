@@ -56,7 +56,7 @@ def completion(config, setup=None, signal=0):                                   
     re-initializes setup objet or calls reset inner method."""
 
 
-    setupOpt = ss.SirenCompletion.Options({'sirenFileName': 'experiment_7',\
+    setupOpt = ss.SirenCompletion.Options({'Verbose': True, 'sirenFileName': 'experiment_7',\
                                            'imagePath': config.current['imagePath'], \
                                            'maskPath': config.current['maskPath']})
 

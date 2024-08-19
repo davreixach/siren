@@ -270,6 +270,7 @@ class SirenCompletion(experiment.GenericSetup):
         """Catch siren completion solutions"""
 
         summaryPath = "./logs/" + self.opt['sirenFileName'] + "/summaries/"
+        outPath = "./out/train_pred_img/"
 
         make_figures.extract_images_from_summary(summaryPath, 'train_pred_img', suffix='',\
                                                  img_outdir='./out/', colormap=None)
@@ -282,7 +283,7 @@ class SirenCompletion(experiment.GenericSetup):
         Stest = cv2.imread(self.opt['imagePath'])
         Mask = cv2.imread(self.opt['maskPath'])
 
-        R_nl.setElement(cv2.imread(summaryPath + "0009.png"), id=None)                              # get
+        R_nl.setElement(cv2.imread(outPath + "0009.png"), id=None)                              # get
         S_nl.setElement(Stest*Mask, id=None)
         Stest_nl.setElement(Stest, id=None)
         Mask_nl.setElement(Mask, id=None)
