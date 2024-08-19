@@ -297,6 +297,15 @@ def extract_image_psnrs(summary_paths):
 
         np.save(os.path.join(item, 'psnrs.npy'), psnrs)
 
+def extract_image_times(summary_paths):
+    for key, item in summary_paths.items():
+        summary_file = os.listdir(item)[0]
+        summary_file = os.path.join(item, summary_file)
+
+        wall_times, values = extract_from_summary(summary_file, 'train_img_time')
+        times = [values for _, values in sorted(zip(wall_times, values))]
+
+        np.save(os.path.join(item, 'times.npy'), psnrs)
 
 if __name__ == '__main__':
     image_convergence_video()
