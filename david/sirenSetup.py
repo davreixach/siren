@@ -295,7 +295,8 @@ class SirenCompletion(experiment.GenericSetup):
     def set_res_parameters(self):
         """Set results parameters list."""
 
-        self.parameters = dict(zip(self.res_par.keys(), [eval(val, self.__dict__) for val in self.res_par.values()]))
+        # self.parameters = dict(zip(self.res_par.keys(), [eval(val, self.__dict__) for val in self.res_par.values()]))
+        self.parameters  = {}   
 
     def get_full_result(self, results):
         """
