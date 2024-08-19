@@ -67,14 +67,19 @@ def extract_from_summary(path, value_tag):
     wall_times = []
     values = []
 
+    tags = []
+
     for event in tf.compat.v1.train.summary_iterator(path):
         if not origin_wall_time:
             origin_wall_time = event.wall_time
         for value in event.summary.value:
-            print(value.tag)
+            tags.append(value.tag)
             if value.tag == value_tag:
                 wall_times.append(event.wall_time - origin_wall_time)
                 values.append(value.simple_value)
+
+    print(set(tags))
+
     return wall_times, values
 
 

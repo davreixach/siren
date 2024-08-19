@@ -25,24 +25,26 @@ from collections import namedtuple
 import os
 import copy
 import numpy as np
-import torch
-import pandas as pd
-import cv2
+# import torch
+# import pandas as pd
+# import cv2
 
 import emics.util as emu
 from emics import experiment
 
-from tensor import lrd
-from tensor import ccmod
-from tensor import cbpdn
+# from tensor import lrd
+# from tensor import ccmod
+# from tensor import cbpdn
 
-from sporco.admm import admm
-from sporco import cnvrep
-from sporco.admm import ccmod as spccmod
-from sporco.dictlrn import dictlrn
-from sporco.util import u
+# from sporco.admm import admm
+# from sporco import cnvrep
+# from sporco.admm import ccmod as spccmod
+# from sporco.dictlrn import dictlrn
+# from sporco.util import u
 
-from scipy.spatial.distance import cdist, squareform
+# from scipy.spatial.distance import cdist, squareform
+
+import make_figures
 
 __author__ = """David Reixach <david.reixach@upc.edu>"""
 
@@ -243,6 +245,17 @@ class SirenCompletion(experiment.GenericSetup):
     def catch_results(self):
         """Catch siren completion results"""
 
+    summaryPath = "./logs/" + self.opt['sirenFileName'] + "/summaries/"
+
+    make_figures.extract_image_psnrs(dict({'base': summaryPath}))
+    make_figures.extract_image_times(dict({'base': summaryPath}))
+
+    arr_psnrs = np.load(summaryPath + "psnrs.npy")
+    arr_times = np.load(summaryPath + "times.npy")
+
+    resTuple = collections.namedtuple('Result', ['PSNR', 'Time'])                   # as namedtuple
+
+    return resTuple(arr_psnrs[-1], arr_times[-1])
 
     def catch_solutions(self):
         """Catch siren completion solutions"""
