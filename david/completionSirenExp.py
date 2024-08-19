@@ -87,7 +87,7 @@ if expId == 1:
     multi_run = 1                                                                                       # expOpt
     multi_step = 1
     multi_signal = 1
-    varCoupling = ('StestFileName', 'MaskFileName')
+    varCoupling = ('imagePath', 'maskPath')
 
 elif expId == 2:
     descr = 'ICLR24 KODAK 3% completion.'
@@ -98,7 +98,7 @@ elif expId == 2:
     multi_run = 1                                                                                       # expOpt
     multi_step = 1
     multi_signal = 1
-    varCoupling = ('StestFileName', 'MaskFileName')
+    varCoupling = ('imagePath', 'maskPath')
 
 elif expId == 3:
     descr = 'ICLR24 KODAK 2% completion.'
@@ -109,7 +109,7 @@ elif expId == 3:
     multi_run = 1                                                                                       # expOpt
     multi_step = 1
     multi_signal = 1
-    varCoupling = ('StestFileName', 'MaskFileName')
+    varCoupling = ('imagePath', 'maskPath')
 
 elif expId == 4:
     descr = 'ICLR24 KODAK 1% completion.'
@@ -120,7 +120,7 @@ elif expId == 4:
     multi_run = 1                                                                                       # expOpt
     multi_step = 1
     multi_signal = 1
-    varCoupling = ('StestFileName', 'MaskFileName')
+    varCoupling = ('imagePath', 'maskPath')
 
 else:
     raise ValueError('Incorrect experiment key.')
